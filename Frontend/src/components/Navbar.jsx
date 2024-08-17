@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Login from './Login';
+import Logout from './Logout';
+import { useAuth } from '../context/AuthProvider';
 //Hook are function that are used to manage states
 function Navbar() {
+  const[authUser,setAuthUser]=useAuth()
+  
+
+    
+
   const[theme,setTheme]=useState(localStorage.getItem("theme")?localStorage.getItem("theme"):"light")
   const element=document.documentElement;
   useEffect(()=>{
@@ -81,9 +88,14 @@ function Navbar() {
   <svg className="swap-on fill-current w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onClick={()=>setTheme(theme==="dark"?"light":"dark")}><path d="M21.64,13a1,1,0,0,0-1.05-.14,7.05,7.05,0,0,1-3.37.73A8.15,7.15,0,0,1,9.08,5.49a8.59,7.59,0,0,1,.25-2A1,1,0,0,0,7,2.36,7.14,7.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,7.14,0,0,1,7.08,5.22v.27A10.15,7.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,7.11,0,0,1,12.14,19.73Z"/></svg>
   
 </label>
-  <div >
+
+{
+  authUser?<Logout/>:
+<div >
     <a className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer" onClick={()=>document.getElementById("my_modal_3").showModal()}>Login</a><Login/>
   </div>
+}
+  
 </div>
 </div>
     </div>
